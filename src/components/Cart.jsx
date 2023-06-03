@@ -22,13 +22,15 @@ const ShoppingCart = () => {
         <Typography variant="h4" sx={{ mx: "auto" }}>
           Cart
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => dispatch(clearAllItems())}
-        >
-          Clear Cart
-        </Button>
+        {cartProducts.length > 0 && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => dispatch(clearAllItems())}
+          >
+            Clear Cart
+          </Button>
+        )}
       </Box>
 
       <Box display="flex" flexDirection="column" mt={4} alignItems="center">
