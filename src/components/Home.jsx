@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
         <Typography variant="h3" textAlign="center">
-          Welcome to the Home Page of our Delivery Page!
+          Welcome to the Awesome Delivery App!
         </Typography>
         <Typography variant="h4">
           Please, choose one of our online-store:
