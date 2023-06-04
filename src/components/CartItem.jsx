@@ -38,6 +38,7 @@ const CardItem = ({ item }) => {
             src={img}
             alt={title}
             sx={{ width: 100 }}
+            objectfit="contain"
           />
           <CardContent
             style={{

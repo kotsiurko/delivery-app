@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/sliceCart";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -22,25 +23,23 @@ function ProductItem({ product }) {
     truncatedTitle = product.title;
   }
 
+  let img = "";
+  if (product.image) {
+    img = product.image;
+  } else {
+    img = product.images[0];
+  }
+
   return (
     <>
       <Card sx={{ width: 276, display: "flex", flexDirection: "column" }}>
-        {product.image && (
-          <CardMedia
-            component="img"
-            height="200"
-            image={product.image}
-            alt="Product Image"
-          />
-        )}
-        {product.images && (
-          <CardMedia
-            component="img"
-            height="200"
-            image={product.images[0]}
-            alt="Product Image"
-          />
-        )}
+        <CardMedia
+          component="img"
+          height="200"
+          image={img}
+          alt={product.title}
+          style={{ objectFit: "contain" }}
+        />
         <CardContent
           sx={{
             display: "flex",
@@ -50,25 +49,31 @@ function ProductItem({ product }) {
           }}
         >
           <Typography variant="h6">{truncatedTitle}</Typography>
-          <Typography variant="body1" color="textSecondary">
-            Price: ${product.price}
-          </Typography>
+          <Box>
+            <Typography variant="body1" color="#1c1414cc" mb={2}>
+              Price: ${product.price}
+            </Typography>
 
-          {cartProducts.some((cartItem) => cartItem.title === product.title) ? (
-            <Button
-              variant="contained"
-              onClick={() => dispatch(removeFromCart(product))}
-            >
-              Remove from cart
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              onClick={() => dispatch(addToCart(product))}
-            >
-              Add to cart
-            </Button>
-          )}
+            <Box display="flex" justifyContent="center">
+              {cartProducts.some(
+                (cartItem) => cartItem.title === product.title
+              ) ? (
+                <Button
+                  variant="contained"
+                  onClick={() => dispatch(removeFromCart(product))}
+                >
+                  Remove from cart
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => dispatch(addToCart(product))}
+                >
+                  Add to cart
+                </Button>
+              )}
+            </Box>
+          </Box>
         </CardContent>
       </Card>
     </>

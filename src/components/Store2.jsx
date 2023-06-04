@@ -3,11 +3,16 @@ import { setData } from "../store/sliceShop2";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Store2 = () => {
   const dispatch = useDispatch();
   const [store2Arr, setStore2Arr] = useState([]);
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,8 +35,7 @@ const Store2 = () => {
     <>
       <Box display="flex" alignItems="center" mt={2}>
         <Button
-          component={Link}
-          to="/"
+          onClick={goBack}
           variant="contained"
           color="primary"
           sx={{ position: "absolute" }}

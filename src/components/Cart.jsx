@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAllItems } from "../store/sliceCart";
@@ -7,6 +7,11 @@ import { clearAllItems } from "../store/sliceCart";
 const ShoppingCart = () => {
   const { cartProducts } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const goBack = (e) => {
+    navigate(-1);
+  };
 
   const totalPrice = cartProducts.reduce(
     (accumulator, cartProducts) => accumulator + cartProducts.price,
@@ -16,7 +21,7 @@ const ShoppingCart = () => {
   return (
     <>
       <Box display="flex" alignItems="center" mt={2}>
-        <Button component={Link} to="/" variant="contained" color="primary">
+        <Button onClick={goBack} variant="contained" color="primary">
           Back
         </Button>
         <Typography variant="h4" sx={{ mx: "auto" }}>
