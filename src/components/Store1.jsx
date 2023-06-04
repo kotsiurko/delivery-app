@@ -3,7 +3,7 @@ import { setData } from "../store/sliceShop1";
 import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import { Box, Button, Typography } from "@mui/material";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Store1 = () => {
   const dispatch = useDispatch();
