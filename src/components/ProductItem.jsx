@@ -8,11 +8,15 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 
 const maxTitleLength = 32;
 
 function ProductItem({ product }) {
   const { cartProducts } = useSelector((state) => state.cart);
+
+  const location = useLocation();
+  const { pathname } = location;
 
   const dispatch = useDispatch();
 
@@ -30,16 +34,27 @@ function ProductItem({ product }) {
     img = product.images[0];
   }
 
+  const storeName = pathname.slice(1);
+
+  const productLink = `/${storeName}/${product.id}`;
+
+  const goToProductPage = () => {
+    console.log("product :>> ", product);
+    console.log(`I clicked on product ${product.title}`);
+  };
+
   return (
     <>
       <Card sx={{ width: 276, display: "flex", flexDirection: "column" }}>
-        <CardMedia
-          component="img"
-          height="200"
-          image={img}
-          alt={product.title}
-          style={{ objectFit: "contain" }}
-        />
+        <Link onClick={goToProductPage} to={productLink}>
+          <CardMedia
+            component="img"
+            height="200"
+            image={img}
+            alt={product.title}
+            style={{ objectFit: "contain" }}
+          />
+        </Link>
         <CardContent
           sx={{
             display: "flex",

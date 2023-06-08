@@ -18,7 +18,7 @@ const Home = () => {
       <Box display="flex" justifyContent="center" mt={2}>
         <Card
           component={Link}
-          to="/store1"
+          to="fakestore"
           sx={{
             m: 1,
             display: "flex",
@@ -47,7 +47,7 @@ const Home = () => {
 
         <Card
           component={Link}
-          to="/store2"
+          to="escuelajs"
           sx={{
             m: 1,
             display: "flex",

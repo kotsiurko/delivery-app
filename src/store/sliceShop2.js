@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const shop2Slice = createSlice({
-  name: 'shop2',
-  initialState: { products2: [] },
+  name: 'escuelajs',
+  initialState: { escuelajsArr: [] },
   reducers: {
-    setData(state, action) {
-      state.products2.push(action.payload);
+    setDataEscuelajs(state, action) {
+      state.escuelajsArr = action.payload;
     },
   },
 });
 
-export const { setData } = shop2Slice.actions;
+export const { setDataEscuelajs } = shop2Slice.actions;
 export default shop2Slice.reducer;
