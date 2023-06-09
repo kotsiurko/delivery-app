@@ -9,7 +9,6 @@ import ProductList from "./ProductList";
 import {
   Box,
   Typography,
-  Breadcrumbs,
   // Button
 } from "@mui/material";
 import {
@@ -17,6 +16,7 @@ import {
   useLocation,
   // useNavigate
 } from "react-router-dom";
+import Breadcrumbs from "./Breadcrumbs";
 
 const Stores = () => {
   const dispatch = useDispatch();
@@ -71,10 +71,7 @@ const Stores = () => {
 
   return (
     <>
-      <Breadcrumbs aria-label="breadcrumb" mt={2}>
-        <Link to="/">Main</Link>
-        {/* <Link to="/">FakeStoreApi Shop</Link> */}
-      </Breadcrumbs>
+      <Breadcrumbs />
       <Box display="flex" alignItems="center" mt={2}>
         {/* <Button
           onClick={goBack}

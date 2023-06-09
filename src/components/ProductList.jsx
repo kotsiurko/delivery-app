@@ -31,7 +31,6 @@ function ProductList({ pathname }) {
       {productList.map((product) => {
         return <ProductItem product={product} key={product.title} />;
       })}
-      {/* Product array list */}
     </Grid>
   );
 }

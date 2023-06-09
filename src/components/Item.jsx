@@ -1,48 +1,47 @@
-import { addToCart, removeFromCart } from "../store/sliceCart";
+// import { addToCart, removeFromCart } from "../store/sliceCart";
 import {
   Box,
   Button,
   Card,
   CardContent,
   CardMedia,
+  Container,
+  Grid,
   Typography,
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import {
-  useDispatch,
-  // useSelector
-} from "react-redux";
+import // useDispatch,
+// useSelector
+"react-redux";
 import { useLocation, useParams } from "react-router-dom";
-
-const maxTitleLength = 32;
+import Breadcrumbs from "./Breadcrumbs";
+import { getShopinfo } from "../utils/helpers";
 
 function Item() {
-  // const { cartProducts } = useSelector((state) => state.cart);
-
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
-  const dispatch = useDispatch();
-  console.log("location :>> ", location);
 
-  const [storeProduct, setStoreProduct] = useState();
+  const [product, setProduct] = useState();
 
-  let storeAPI = "";
-  if (pathname.includes("fakestore")) {
-    console.log("first");
-    storeAPI = "https://fakestoreapi.com/products";
-  }
-  if (pathname.includes("escuelajs")) {
-    console.log("second");
-    storeAPI =
-      "https://api.escuelajs.co/api/v1/products/?price_min=100&price_max=1000&offset=10&limit=10";
-  }
+  // let storeAPI = "";
+  // if (pathname.includes("fakestore")) {
+  //   console.log("first");
+  //   storeAPI = "https://fakestoreapi.com/products";
+  // }
+  // if (pathname.includes("escuelajs")) {
+  //   console.log("second");
+  //   storeAPI =
+  //     "https://api.escuelajs.co/api/v1/products/?price_min=100&price_max=1000&offset=10&limit=10";
+  // }
+
+  const shopObj = getShopinfo(pathname);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(storeAPI);
+        const response = await fetch(shopObj.storeAPI);
         const data = await response.json();
         const newArr = data.map((item) => {
           return {
@@ -51,11 +50,11 @@ function Item() {
           };
         });
 
-        console.log("newArr :>> ", newArr);
-        console.log("id :>> ", id);
+        // console.log("newArr :>> ", newArr);
+        // console.log("id :>> ", id);
         let storeProduct = newArr.find((el) => el.id === Number(id));
-        console.log("storeProduct is :>> ", storeProduct);
-        setStoreProduct(storeProduct);
+        // console.log("storeProduct is :>> ", storeProduct);
+        setProduct(storeProduct);
 
         // setProductsArr(newData);
       } catch (error) {
@@ -64,73 +63,45 @@ function Item() {
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [id, pathname, shopObj.storeAPI]);
 
-  // let truncatedTitle = "";
-  // if (storeProduct.title.length > maxTitleLength) {
-  //   truncatedTitle = storeProduct.title.slice(0, maxTitleLength) + "...";
-  // } else {
-  //   truncatedTitle = storeProduct.title;
-  // }
-
-  // let img = "";
-  // if (storeProduct.image) {
-  //   img = storeProduct.image;
-  // } else {
-  //   img = storeProduct.images[0];
-  // }
+  console.log("I'm in the product page");
 
   return (
     <>
-      <hr />
-      <div>Page with detailed product description of product with id#{id}</div>
-      {/* <div>Product title: {storeProduct.title}</div> */}
-      <hr />
-      <div>Styles will be soon)</div>
-      {/* <Card sx={{ width: 276, display: "flex", flexDirection: "column" }}>
-        <CardMedia
-          component="img"
-          height="200"
-          image={img}
-          alt={storeProduct.title}
-          style={{ objectFit: "contain" }}
-        />
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            flexGrow: "1",
-          }}
-        >
-          <Typography variant="h6">{truncatedTitle}</Typography>
-          <Box>
-            <Typography variant="body1" color="#1c1414cc" mb={2}>
-              Price: ${storeProduct.price}
-            </Typography>
-
-            <Box display="flex" justifyContent="center">
-              {cartProducts.some(
-                (cartItem) => cartItem.title === storeProduct.title
-              ) ? (
-                <Button
-                  variant="contained"
-                  onClick={() => dispatch(removeFromCart(product))}
-                >
-                  Remove from cart
+      {product && (
+        <>
+          <Breadcrumbs shopObj={shopObj} />
+          <Container maxWidth="lg">
+            <Grid container spacing={3} paddingTop={4} paddingBottom={4}>
+              <Grid item xs={12} md={6}>
+                <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+                  <CardMedia
+                    component="img"
+                    image={product.image ?? product.images[0]}
+                    alt={product.title}
+                    style={{ objectFit: "contain" }}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h3" component="h1" gutterBottom>
+                  {product.title}
+                </Typography>
+                <Typography variant="h5" component="h2" gutterBottom>
+                  Price: ${product.price}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  {product.description}
+                </Typography>
+                <Button variant="contained" color="primary">
+                  Add to Cart
                 </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={() => dispatch(addToCart(product))}
-                >
-                  Add to cart
-                </Button>
-              )}
-            </Box>
-          </Box>
-        </CardContent>
-      </Card> */}
+              </Grid>
+            </Grid>
+          </Container>
+        </>
+      )}
     </>
   );
 }
