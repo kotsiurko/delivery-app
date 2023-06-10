@@ -17,6 +17,7 @@ import {
   // useNavigate
 } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
+import { getShopinfo } from "../utils/helpers";
 
 const Stores = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,8 @@ const Stores = () => {
         const newData = data.map((item) => {
           return {
             ...item,
-            store: pathname,
+            // store: pathname,
+            store: getShopinfo(pathname).shopName,
           };
         });
         if (pathname === "/fakestore") {

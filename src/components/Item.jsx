@@ -1,9 +1,7 @@
-// import { addToCart, removeFromCart } from "../store/sliceCart";
+import { addToCart, removeFromCart } from "../store/sliceCart";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
   CardMedia,
   Container,
   Grid,
@@ -11,32 +9,19 @@ import {
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
-import // useDispatch,
-// useSelector
-"react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
 import { getShopinfo } from "../utils/helpers";
+import { useDispatch, useSelector } from "react-redux";
 
 function Item() {
   const { id } = useParams();
   const location = useLocation();
   const { pathname } = location;
-
   const [product, setProduct] = useState();
-
-  // let storeAPI = "";
-  // if (pathname.includes("fakestore")) {
-  //   console.log("first");
-  //   storeAPI = "https://fakestoreapi.com/products";
-  // }
-  // if (pathname.includes("escuelajs")) {
-  //   console.log("second");
-  //   storeAPI =
-  //     "https://api.escuelajs.co/api/v1/products/?price_min=100&price_max=1000&offset=10&limit=10";
-  // }
-
   const shopObj = getShopinfo(pathname);
+  const { cartProducts } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,13 +35,8 @@ function Item() {
           };
         });
 
-        // console.log("newArr :>> ", newArr);
-        // console.log("id :>> ", id);
         let storeProduct = newArr.find((el) => el.id === Number(id));
-        // console.log("storeProduct is :>> ", storeProduct);
         setProduct(storeProduct);
-
-        // setProductsArr(newData);
       } catch (error) {
         console.log("Error fetching data:", error);
       }
@@ -64,8 +44,6 @@ function Item() {
 
     fetchData();
   }, [id, pathname, shopObj.storeAPI]);
-
-  console.log("I'm in the product page");
 
   return (
     <>
@@ -94,9 +72,28 @@ function Item() {
                 <Typography variant="body1" gutterBottom>
                   {product.description}
                 </Typography>
-                <Button variant="contained" color="primary">
+                {/* <Button variant="contained" color="primary">
                   Add to Cart
-                </Button>
+                </Button> */}
+                <Box display="flex" justifyContent="center">
+                  {cartProducts.some(
+                    (cartItem) => cartItem.title === product.title
+                  ) ? (
+                    <Button
+                      variant="contained"
+                      onClick={() => dispatch(removeFromCart(product))}
+                    >
+                      Remove from cart
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={() => dispatch(addToCart(product))}
+                    >
+                      Add to cart
+                    </Button>
+                  )}
+                </Box>
               </Grid>
             </Grid>
           </Container>

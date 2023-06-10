@@ -3,9 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAllItems } from "../store/sliceCart";
+import React from "react";
 
 const ShoppingCart = () => {
   const { cartProducts } = useSelector((state) => state.cart);
+  // придумати логіку сортування товарів за магазинами
+  //
+  // cartProducts[0].store
+  const shopNamesArr = cartProducts.reduce((accumulator, obj) => {
+    if (!accumulator.includes(obj.store)) {
+      accumulator.push(obj.store);
+    }
+    return accumulator;
+  }, []);
+  // Тепер в залежності скільки магазинів у масиві,
+  // треба зробити стільки масивів із товарами, що відносяться до конкретного магазину
+
+  console.log("cartProducts :>> ", cartProducts);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -53,10 +67,20 @@ const ShoppingCart = () => {
       </Box>
 
       <Box display="flex" flexDirection="column" gap={4}>
-        {cartProducts.map((item) => (
-          <CartItem key={item.id} item={item} />
-        ))}
+        {shopNamesArr.map((el) => {
+          return (
+            <React.Fragment key={el}>
+              <Typography variant="h6">{el} Shop</Typography>
+              {cartProducts
+                .filter((item) => item.store === el)
+                .map((item) => (
+                  <CartItem key={item.id} item={item} />
+                ))}
+            </React.Fragment>
+          );
+        })}
       </Box>
+
       {totalPrice > 0 && (
         <Box display="flex" justifyContent="flex-end" mt={4}>
           <Typography variant="h6">Total: ${totalPrice}</Typography>
