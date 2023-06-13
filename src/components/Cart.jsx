@@ -22,11 +22,13 @@ const ShoppingCart = () => {
     navigate(-1);
   };
 
-  const totalPrice = cartProducts.reduce(
-    (accumulator, cartProducts) =>
-      accumulator + cartProducts.price * cartProducts.amount,
-    0
-  );
+  const totalPrice = cartProducts
+    .reduce(
+      (accumulator, cartProducts) =>
+        accumulator + cartProducts.price * cartProducts.amount,
+      0
+    )
+    .toFixed(2);
 
   return (
     <>

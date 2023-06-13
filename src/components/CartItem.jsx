@@ -8,6 +8,7 @@ import {
   Button,
   ButtonGroup,
   TextField,
+  Chip,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
@@ -75,10 +76,7 @@ const CardItem = ({ item }) => {
               </Typography>
             </Box>
             <Typography variant="body2" pt={1} pb={1}>
-              Price: ${price}
-            </Typography>
-            <Typography variant="body2" pt={1} pb={1}>
-              Amount:
+              <b>Price: ${price}</b>
             </Typography>
             <ButtonGroup size="small" aria-label="small button group">
               <Button variant="text">Amount:</Button>
@@ -90,13 +88,20 @@ const CardItem = ({ item }) => {
               >
                 <RemoveCircleOutline fontSize="small" />
               </Button>
-              <TextField
+              {/* <TextField
                 size="small"
                 aria-label="small button group"
                 value={amount}
-                inputProps={{ min: 1 }}
-                style={{ width: "38px", textAlign: "center" }}
-              />
+                style={{ width: "48px" }}
+              /> */}
+              {/* <Chip
+                // label={amount}
+                label="Hello"
+                variant="outlined"
+              /> */}
+              <Typography variant="body2" p={2}>
+                {amount}
+              </Typography>
               <Button
                 variant="text"
                 onClick={() => {
