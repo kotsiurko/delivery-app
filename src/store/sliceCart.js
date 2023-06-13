@@ -6,17 +6,37 @@ const cartSlice = createSlice({
     cartProducts: [],
   },
   reducers: {
+
     addToCart(state, action) {
-      state.cartProducts = [action.payload, ...state.cartProducts]
+      const productTransform = {
+        ...action.payload,
+      }
+      state.cartProducts = [productTransform, ...state.cartProducts]
     },
+
     removeFromCart(state, action) {
       state.cartProducts = state.cartProducts.filter(el => action.payload.title !== el.title)
     },
+
     clearAllItems(state) {
       state.cartProducts = []
+    },
+
+    updateAmount(state, action) {
+      const { item, value } = action.payload;
+      state.cartProducts = state.cartProducts.map(el => {
+        if (el.title === item.title) {
+          return {
+            ...el,
+            amount: item.amount + value,
+          }
+        }
+        return el;
+      })
+      state.cartProducts = [...state.cartProducts]
     },
   },
 })
 
-export const { addToCart, removeFromCart, clearAllItems } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearAllItems, updateAmount } = cartSlice.actions;
 export default cartSlice.reducer;

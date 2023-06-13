@@ -38,15 +38,10 @@ function ProductItem({ product }) {
 
   const productLink = `/${storeName}/${product.id}`;
 
-  const goToProductPage = () => {
-    console.log("product :>> ", product);
-    console.log(`I clicked on product ${product.title}`);
-  };
-
   return (
     <>
       <Card sx={{ width: 276, display: "flex", flexDirection: "column" }}>
-        <Link onClick={goToProductPage} to={productLink}>
+        <Link to={productLink}>
           <CardMedia
             component="img"
             height="200"

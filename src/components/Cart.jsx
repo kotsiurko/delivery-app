@@ -7,14 +7,14 @@ import React from "react";
 
 const ShoppingCart = () => {
   const { cartProducts } = useSelector((state) => state.cart);
-  
+
   const shopNamesArr = cartProducts.reduce((accumulator, obj) => {
     if (!accumulator.includes(obj.store)) {
       accumulator.push(obj.store);
     }
     return accumulator;
   }, []);
-  
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const ShoppingCart = () => {
   };
 
   const totalPrice = cartProducts.reduce(
-    (accumulator, cartProducts) => accumulator + cartProducts.price,
+    (accumulator, cartProducts) =>
+      accumulator + cartProducts.price * cartProducts.amount,
     0
   );
 

@@ -32,6 +32,7 @@ function Item() {
           return {
             ...item,
             store: shopObj.shopName,
+            amount: 1,
           };
         });
 
@@ -72,9 +73,6 @@ function Item() {
                 <Typography variant="body1" gutterBottom>
                   {product.description}
                 </Typography>
-                {/* <Button variant="contained" color="primary">
-                  Add to Cart
-                </Button> */}
                 <Box display="flex" justifyContent="center">
                   {cartProducts.some(
                     (cartItem) => cartItem.title === product.title

@@ -29,19 +29,14 @@ const Stores = () => {
   // };
 
   const { pathname } = useLocation();
-  // console.log("location :>> ", location);
   let storeAPI = "";
   if (pathname === "/fakestore") {
-    console.log("first");
     storeAPI = "https://fakestoreapi.com/products";
   }
   if (pathname === "/escuelajs") {
-    console.log("second");
     storeAPI =
       "https://api.escuelajs.co/api/v1/products/?price_min=100&price_max=1000&offset=10&limit=10";
   }
-
-  // console.log("storeAPI :>> ", storeAPI);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,8 +46,8 @@ const Stores = () => {
         const newData = data.map((item) => {
           return {
             ...item,
-            // store: pathname,
             store: getShopinfo(pathname).shopName,
+            amount: 1,
           };
         });
         if (pathname === "/fakestore") {
