@@ -31,7 +31,7 @@ function Item() {
         const newArr = data.map((item) => {
           return {
             ...item,
-            store: pathname,
+            store: shopObj.shopName,
           };
         });
 
@@ -43,7 +43,7 @@ function Item() {
     };
 
     fetchData();
-  }, [id, pathname, shopObj.storeAPI]);
+  }, [id, pathname, shopObj.storeAPI, shopObj.shopName]);
 
   return (
     <>

@@ -7,19 +7,14 @@ import React from "react";
 
 const ShoppingCart = () => {
   const { cartProducts } = useSelector((state) => state.cart);
-  // придумати логіку сортування товарів за магазинами
-  //
-  // cartProducts[0].store
+  
   const shopNamesArr = cartProducts.reduce((accumulator, obj) => {
     if (!accumulator.includes(obj.store)) {
       accumulator.push(obj.store);
     }
     return accumulator;
   }, []);
-  // Тепер в залежності скільки магазинів у масиві,
-  // треба зробити стільки масивів із товарами, що відносяться до конкретного магазину
-
-  console.log("cartProducts :>> ", cartProducts);
+  
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

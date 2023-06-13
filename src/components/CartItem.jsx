@@ -31,8 +31,8 @@ const CardItem = ({ item }) => {
 
   return (
     <Card>
-      <Box display="flex" justifyContent="space-between" p={1}>
-        <Box display="flex" p={1}>
+      <Box display="flex" justifyContent="space-between" p={2}>
+        <Box display="flex">
           <CardMedia
             component="img"
             src={img}
@@ -45,10 +45,11 @@ const CardItem = ({ item }) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
+              paddingTop: "8px",
             }}
           >
             <Box>
-              <Typography variant="subtitle1" component="div">
+              <Typography variant="h6" component="div">
                 {title}
               </Typography>
               <Typography variant="body2" component="div">
