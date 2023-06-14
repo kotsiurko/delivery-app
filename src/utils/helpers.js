@@ -1,5 +1,4 @@
 export function getShopinfo(pathname) {
-  // console.log('pathname!!! :>> ', pathname);
   if (pathname.toLowerCase().includes("fakestore")) {
     return {
       storeAPI: "https://fakestoreapi.com/products",

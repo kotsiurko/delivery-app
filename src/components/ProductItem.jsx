@@ -63,7 +63,6 @@ function ProductItem({ product }) {
 
             <Box display="flex" justifyContent="space-between">
               <Box>
-                {console.log("cartProducts :>> ", cartProducts)}
                 {cartProducts.some(
                   (cartItem) => cartItem.title === product.title
                 ) ? (
@@ -83,7 +82,6 @@ function ProductItem({ product }) {
                 )}
               </Box>
               <Box>
-                {console.log("favsProducts :>> ", favsProducts)}
                 {favsProducts.some(
                   (favItem) => favItem.title === product.title
                 ) ? (
