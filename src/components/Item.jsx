@@ -1,4 +1,5 @@
 import { addToCart, removeFromCart } from "../store/sliceCart";
+import { addToFavs, removeFromFavs } from "../store/sliceFavs";
 import {
   Box,
   Button,
@@ -7,6 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -21,6 +23,7 @@ function Item() {
   const [product, setProduct] = useState();
   const shopObj = getShopinfo(pathname);
   const { cartProducts } = useSelector((state) => state.cart);
+  const { favsProducts } = useSelector((state) => state.favs);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,24 +76,47 @@ function Item() {
                 <Typography variant="body1" gutterBottom>
                   {product.description}
                 </Typography>
-                <Box display="flex" justifyContent="center">
-                  {cartProducts.some(
-                    (cartItem) => cartItem.title === product.title
-                  ) ? (
-                    <Button
-                      variant="contained"
-                      onClick={() => dispatch(removeFromCart(product))}
-                    >
-                      Remove from cart
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      onClick={() => dispatch(addToCart(product))}
-                    >
-                      Add to cart
-                    </Button>
-                  )}
+                <Box display="flex" justifyContent="space-between">
+                  <Box>
+                    {console.log("cartProducts :>> ", cartProducts)}
+                    {cartProducts.some(
+                      (cartItem) => cartItem.title === product.title
+                    ) ? (
+                      <Button
+                        variant="contained"
+                        onClick={() => dispatch(removeFromCart(product))}
+                      >
+                        Remove from cart
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outlined"
+                        onClick={() => dispatch(addToCart(product))}
+                      >
+                        Add to cart
+                      </Button>
+                    )}
+                  </Box>
+                  <Box>
+                    {console.log("favsProducts :>> ", favsProducts)}
+                    {favsProducts.some(
+                      (favItem) => favItem.title === product.title
+                    ) ? (
+                      <Button
+                        variant="contained"
+                        onClick={() => dispatch(removeFromFavs(product))}
+                      >
+                        <FavoriteIcon />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outlined"
+                        onClick={() => dispatch(addToFavs(product))}
+                      >
+                        <FavoriteIcon />
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
               </Grid>
             </Grid>

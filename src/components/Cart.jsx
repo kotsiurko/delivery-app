@@ -51,7 +51,8 @@ const ShoppingCart = () => {
       </Box>
 
       <Box display="flex" flexDirection="column" mt={4} alignItems="center">
-        {totalPrice === 0 && (
+        {console.log("cartProducts :>> ", cartProducts)}
+        {cartProducts.length === 0 && (
           <>
             <Typography variant="h5" mb={2}>
               Your cart is empty now, but you can buy anything in one of our

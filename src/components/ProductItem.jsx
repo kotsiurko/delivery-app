@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/sliceCart";
+import { addToFavs, removeFromFavs } from "../store/sliceFavs";
 import {
   Box,
   Button,
@@ -8,15 +9,15 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
+import { getShopinfo } from "../utils/helpers";
 
 const maxTitleLength = 32;
 
 function ProductItem({ product }) {
   const { cartProducts } = useSelector((state) => state.cart);
-
-  const location = useLocation();
-  const { pathname } = location;
+  const { favsProducts } = useSelector((state) => state.favs);
 
   const dispatch = useDispatch();
 
@@ -34,14 +35,10 @@ function ProductItem({ product }) {
     img = product.images[0];
   }
 
-  const storeName = pathname.slice(1);
-
-  const productLink = `/${storeName}/${product.id}`;
-
   return (
     <>
       <Card sx={{ width: 276, display: "flex", flexDirection: "column" }}>
-        <Link to={productLink}>
+        <Link to={`${getShopinfo(product.store).relativeURL}/${product.id}`}>
           <CardMedia
             component="img"
             height="200"
@@ -64,24 +61,47 @@ function ProductItem({ product }) {
               Price: ${product.price}
             </Typography>
 
-            <Box display="flex" justifyContent="center">
-              {cartProducts.some(
-                (cartItem) => cartItem.title === product.title
-              ) ? (
-                <Button
-                  variant="contained"
-                  onClick={() => dispatch(removeFromCart(product))}
-                >
-                  Remove from cart
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  onClick={() => dispatch(addToCart(product))}
-                >
-                  Add to cart
-                </Button>
-              )}
+            <Box display="flex" justifyContent="space-between">
+              <Box>
+                {console.log("cartProducts :>> ", cartProducts)}
+                {cartProducts.some(
+                  (cartItem) => cartItem.title === product.title
+                ) ? (
+                  <Button
+                    variant="contained"
+                    onClick={() => dispatch(removeFromCart(product))}
+                  >
+                    Remove from cart
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    onClick={() => dispatch(addToCart(product))}
+                  >
+                    Add to cart
+                  </Button>
+                )}
+              </Box>
+              <Box>
+                {console.log("favsProducts :>> ", favsProducts)}
+                {favsProducts.some(
+                  (favItem) => favItem.title === product.title
+                ) ? (
+                  <Button
+                    variant="contained"
+                    onClick={() => dispatch(removeFromFavs(product))}
+                  >
+                    <FavoriteIcon />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    onClick={() => dispatch(addToFavs(product))}
+                  >
+                    <FavoriteIcon />
+                  </Button>
+                )}
+              </Box>
             </Box>
           </Box>
         </CardContent>
