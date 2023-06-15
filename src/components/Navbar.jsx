@@ -16,11 +16,13 @@ import Modal from "@mui/material/Modal";
 import ModalBox from "./ModalBox";
 
 const style = {
+  display: "flex",
+  flexWrap: "wrap",
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  // width: 1000,
+  maxWidth: "80vw",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,

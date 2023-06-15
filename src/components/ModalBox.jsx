@@ -10,11 +10,11 @@ import { clearAllFavs } from "../store/sliceFavs";
 export default function ModalBox({ handleClose }) {
   const { favsProducts } = useSelector((state) => state.favs);
   const dispatch = useDispatch();
+
   return (
     <>
-      {/* НАПИСАТИ ЗАГЛУШКУ НА ВИПАДОК, КОЛИ НЕМА УЛЮБЛЕНИХ ТОВАРІВ */}
       {favsProducts.length > 0 && (
-        <>
+        <Box display="flex" flexDirection="column">
           <Box
             display="flex"
             justifyContent="space-between"
@@ -25,7 +25,6 @@ export default function ModalBox({ handleClose }) {
               Favourite products
             </Typography>
             <Button
-              // component={Link}
               onClick={() => dispatch(clearAllFavs())}
               to="/"
               variant="outlined"
@@ -34,15 +33,30 @@ export default function ModalBox({ handleClose }) {
               Clear favourites
             </Button>
           </Box>
-          <Box display="flex" gap={2}>
-            {favsProducts.map((item) => {
-              return <ProductItem key={item.title} product={item} />;
-            })}
+          <Box display="flex" gap={2} flexWrap="wrap">
+            <Box sx={{ width: 946, bgcolor: "background.paper", p: 2 }}>
+              <Box
+                sx={{
+                  overflowY: "auto",
+                  maxHeight: 460,
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "16px",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                {/* Scrollable content */}
+                {favsProducts.map((item) => {
+                  return <ProductItem key={item.title} product={item} />;
+                })}
+                {/* Scrollable content */}
+              </Box>
+            </Box>
           </Box>
-        </>
+        </Box>
       )}
       {favsProducts.length === 0 && (
-        <>
+        <Box display="flex" flexDirection="column">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Seems like you don't have favourites products now
           </Typography>
@@ -60,7 +74,7 @@ export default function ModalBox({ handleClose }) {
               Go to stores
             </Button>
           </Box>
-        </>
+        </Box>
       )}
     </>
   );
