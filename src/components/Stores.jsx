@@ -1,34 +1,19 @@
 import { useDispatch } from "react-redux";
 import { setDataFakeStore } from "../store/sliceShop1";
 import { setDataEscuelajs } from "../store/sliceShop2";
-import {
-  useEffect,
-  // useState
-} from "react";
+import { useEffect, useState } from "react";
 import ProductList from "./ProductList";
-import {
-  Box,
-  Typography,
-  // Button
-} from "@mui/material";
-import {
-  // Link,
-  useLocation,
-  // useNavigate
-} from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
 import { getShopinfo } from "../utils/helpers";
+import Loader from "./Loader";
 
 const Stores = () => {
   const dispatch = useDispatch();
-  // const [productsArr, setProductsArr] = useState([]);
-
-  // const navigate = useNavigate();
-  // const goBack = () => {
-  //   navigate(-1);
-  // };
-
   const { pathname } = useLocation();
+  const [loading, setLoading] = useState(true);
+
   let storeAPI = "";
   if (pathname === "/fakestore") {
     storeAPI = "https://fakestoreapi.com/products";
@@ -50,14 +35,13 @@ const Stores = () => {
             amount: 1,
           };
         });
+        setLoading(false);
         if (pathname === "/fakestore") {
           dispatch(setDataFakeStore(newData));
         }
         if (pathname === "/escuelajs") {
           dispatch(setDataEscuelajs(newData));
         }
-
-        // setProductsArr(newData);
       } catch (error) {
         console.log("Error fetching data:", error);
       }
@@ -70,21 +54,13 @@ const Stores = () => {
     <>
       <Breadcrumbs />
       <Box display="flex" alignItems="center" mt={2}>
-        {/* <Button
-          onClick={goBack}
-          variant="contained"
-          color="primary"
-          // sx={{ position: "absolute" }}
-        >
-          Back
-        </Button> */}
         <Typography variant="h4" sx={{ mx: "auto" }}>
           {pathname === "/fakestore" && <>You are in the Fakestore Shop</>}
           {pathname === "/escuelajs" && <>You are in the Escuelajs Shop</>}
         </Typography>
       </Box>
-      {/* <ProductList store1Arr={store1Arr} /> */}
-      <ProductList pathname={pathname} />
+      {loading && <Loader />}
+      {!loading && <ProductList pathname={pathname} />}
     </>
   );
 };
