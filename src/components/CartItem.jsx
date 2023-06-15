@@ -86,17 +86,6 @@ const CardItem = ({ item }) => {
               >
                 <RemoveCircleOutline fontSize="small" />
               </Button>
-              {/* <TextField
-                size="small"
-                aria-label="small button group"
-                value={amount}
-                style={{ width: "48px" }}
-              /> */}
-              {/* <Chip
-                // label={amount}
-                label="Hello"
-                variant="outlined"
-              /> */}
               <Typography variant="body2" p={2}>
                 {amount}
               </Typography>

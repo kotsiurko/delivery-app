@@ -2,7 +2,6 @@ import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import ProductItem from "./ProductItem";
 
-// function ProductList({ store1Arr }) {
 function ProductList({ pathname }) {
   let productList = [];
   const { fakestoreArr } = useSelector((state) => state.fakestore);

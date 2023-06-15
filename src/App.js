@@ -2,8 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Cart from './components/Cart'
-// import Store1 from "./components/Store1";
-// import Store2 from "./components/Store2";
 import { Container } from '@mui/material'
 import Footer from './components/Footer';
 import './styles/styles.css'
